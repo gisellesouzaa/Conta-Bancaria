@@ -16,9 +16,9 @@ public class Menu {
 				
 		while (true) {
 			
-			System.out.println(Cores.TEXT_CYAN_BOLD + "****************************************************");
+			System.out.println(Cores.TEXT_BLUE_BOLD_BRIGHT + "****************************************************");
 			System.out.println("													");
-			System.out.println("			BANCO DO BRAZIL COM Z         	        ");
+			System.out.println("		BANCO DA GISELLE        		 	        ");
 			System.out.println("													");
 			System.out.println("****************************************************");
 			System.out.println("													");
@@ -39,7 +39,8 @@ public class Menu {
 			opcao = leia.nextInt();
 
 			if (opcao == 9) {
-				System.out.println("\nBanco do Brazil com Z - O seu Futuro começa aqui!");
+				System.out.println("Banco da Giselle - O seu Futuro começa aqui!");
+				sobre();
 				leia.close(); // 
 				System.exit(0);
 			}
@@ -178,5 +179,15 @@ public class Menu {
 		}
 
 	}
+
+
+
+public static void sobre() {
+	System.out.println("													");
+	System.out.println("	Desenvolvedora do Software						");
+	System.out.println("		Giselle Souza								");
+	System.out.println("E-mail: giselle_souza97@yahoo.com.br				");
+	System.out.println("Github: https://github.com/gisellesouzaa			");
+}	
 
 }
