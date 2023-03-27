@@ -17,6 +17,10 @@ public class Conta {
 		this.saldo = saldo;
 	}
 	
+	//Polimorfismo de sobre carga; mesmo nome, com parametros diferentes
+	//Serve por exemplo para testar se consegue criar opjetos nulos, sem valor
+	public Conta () {}
+	
 	// Métodos sets e gets (source)
 	public int getNumero() {
 		return numero;
@@ -70,7 +74,7 @@ public class Conta {
 		}
 	}
 	
-	public void deposito (float valor) {
+	public void depositar (float valor) {
 		this.setSaldo(this.getSaldo() + valor);
 	}
 	

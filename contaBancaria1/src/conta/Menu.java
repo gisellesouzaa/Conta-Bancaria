@@ -2,6 +2,9 @@ package conta;
 
 import java.util.Scanner;
 
+import conta.model.Conta;
+import conta.model.ContaCorrente;
+import conta.model.ContaPoupanca;
 import conta.util.Cores;
 
 public class Menu {
@@ -13,7 +16,32 @@ public class Menu {
 		int opcao, numero, agencia, tipo, aniversario, numeroDestino;
         String titular;
         float saldo, limite, valor;
-				
+        
+        System.out.println("\n //Criando objetos da classe conta: ");
+        Conta c1 = new Conta(1, 123, 1, "Jeniffer Souza", 100000.00f);
+        c1.visualizar();
+        
+        Conta c2 = new Conta();
+        c2.visualizar();
+        
+        System.out.println("\n //Criando objeto da subclasse conta corrente: ");
+        ContaCorrente cc1 = new ContaCorrente(2, 0123, 1, "Gabriel Medeiros", 100000.00f, 1000.f);
+        cc1.visualizar();
+        
+        System.out.println("\n //função sacar: ");
+        cc1.sacar(100900);
+        cc1.visualizar();
+        
+        System.out.println("\n //função depositar: ");
+        cc1.depositar(2000);
+        cc1.visualizar();
+        
+        System.out.println("\n //Criando objeto da subclasse conta poupança: ");
+        //int numero, int agencia, int tipo, String titular, float saldo, int aniversario
+        ContaPoupanca cp1 = new ContaPoupanca(3, 0205, 2, "Amanda Soares", 15000.00f, 30 );
+        cp1.visualizar();
+
+			
 		while (true) {
 			
 			System.out.println(Cores.TEXT_BLUE_BOLD_BRIGHT + "****************************************************");
@@ -174,7 +202,7 @@ public class Menu {
                 } while (valor <= 0);
 			}
 			
-			default -> System.out.println("Opção inválida \n\n");			
+			default -> System.out.println("\nOpção inválida \n\n");			
 			}
 		}
 
