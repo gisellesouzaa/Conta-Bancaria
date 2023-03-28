@@ -17,12 +17,12 @@ public class Menu {
         String titular;
         float saldo, limite, valor;
         
-        System.out.println("\n //Criando objetos da classe conta: ");
-        Conta c1 = new Conta(1, 123, 1, "Jeniffer Souza", 100000.00f);
-        c1.visualizar();
-        
-        Conta c2 = new Conta();
-        c2.visualizar();
+//        System.out.println("Não é mais possivel criar objetos da classe conta, pois tornamos abstrata: ");
+//        Conta c1 = new Conta(1, 123, 1, "Jeniffer Souza", 100000.00f);
+//        c1.visualizar();
+//        
+//        Conta c2 = new Conta();
+//        c2.visualizar();
         
         System.out.println("\n //Criando objeto da subclasse conta corrente: ");
         ContaCorrente cc1 = new ContaCorrente(2, 0123, 1, "Gabriel Medeiros", 100000.00f, 1000.f);

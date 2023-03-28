@@ -1,6 +1,6 @@
 package conta.model;
 
-public class Conta {
+public abstract class Conta {
 	// Atributos e variáveis 
 	private int numero;
 	private int agencia;
@@ -83,10 +83,10 @@ public class Conta {
 		
 		switch (this.getTipo()) {
 			case 1 -> {
-				tipo = "Conta-Corrente";
+				tipo = "Pessoa Fisica";
 			}
 			case 2 -> {
-				tipo = "Conta-Poupança";
+				tipo = "Pessoa Juridica";
 			}
 		}
 		
