@@ -20,6 +20,19 @@ public class Menu {
 		float saldo, limite, valor;
 
 		ContaController contas = new ContaController();
+		
+		//Cadastrando clientes:
+		ContaCorrente cc1 = new ContaCorrente(contas.gerarNumero(), 123, 1, "Guilherme da Silva", 1000f, 100.0f);
+		contas.cadastrar(cc1);
+
+		ContaCorrente cc2 = new ContaCorrente(contas.gerarNumero(), 124, 1, "Alessandra da Silva", 2000f, 100.0f);
+		contas.cadastrar(cc2);
+
+		ContaPoupanca cp1 = new ContaPoupanca(contas.gerarNumero(), 125, 2, "Catarina Barbosa", 4000f, 12);
+		contas.cadastrar(cp1);
+
+		ContaPoupanca cp2 = new ContaPoupanca(contas.gerarNumero(), 125, 2, "Jucicleide Ramos", 8000f, 15);
+		contas.cadastrar(cp2);
 
 		while (true) {
 
@@ -40,7 +53,7 @@ public class Menu {
 			System.out.println("	9 - Sair										");
 			System.out.println("													");
 			System.out.println("****************************************************");
-			System.out.println("Entre com a opÃ§Ã£o desejada:							");
+			System.out.println("Entre com a opcao desejada:							");
 			System.out.println("													" + Cores.TEXT_RESET);
 
 			try {
@@ -52,7 +65,7 @@ public class Menu {
 			}
 
 			if (opcao == 9) {
-				System.out.println("Banco da Giselle - O seu Futuro comeï¿½a aqui!");
+				System.out.println("Banco da Giselle - O seu Futuro comeca aqui!");
 				sobre();
 				leia.close(); //
 				System.exit(0);
@@ -63,7 +76,7 @@ public class Menu {
 
 				System.out.println("Criar Conta \n\n");
 
-				System.out.println("Digite o Numero da Agï¿½ncia: ");
+				System.out.println("Digite o Numero da Agencia: ");
 				agencia = leia.nextInt();
 				System.out.println("Digite o Nome do Titular: ");
 				leia.skip("\\R?");
@@ -80,7 +93,7 @@ public class Menu {
 				switch (tipo) {
 				
 				case 1 -> {
-					System.out.println("Digite o Limite de CrÃ©dito (R$): ");
+					System.out.println("Digite o Limite de Credito (R$): ");
 					limite = leia.nextFloat();
 
 					// objeto conta corrente:
@@ -106,9 +119,9 @@ public class Menu {
 				break;
 
 			case 3:
-				System.out.println("Consultar dados da conta - por nï¿½mero \n\n");
+				System.out.println("Consultar dados da conta - por numero \n\n");
 
-				System.out.println("Digite o nï¿½mero da conta: ");
+				System.out.println("Digite o numero da conta: ");
 				numero = leia.nextInt();
 
 				contas.procurarPorNumero(numero);
@@ -119,42 +132,47 @@ public class Menu {
 			case 4:
 				System.out.println("Atualizar Dados da Conta \n\n");
 
-				System.out.println("Digite o nï¿½mero da conta: ");
+				System.out.println("Digite o numero da conta: ");
 				numero = leia.nextInt();
 
-				tipo = 1;
-
 				// condicional buscar na collection
+				if(contas.buscarNaCollection(numero) != null) {
 
-				System.out.println("Digite o Numero da Agï¿½ncia: ");
-				agencia = leia.nextInt();
-				System.out.println("Digite o Nome do Titular: ");
-				leia.skip("\\R?");
-				titular = leia.nextLine();
+					// retornar tipo
+					tipo = contas.retornaTipo(numero);
+	
+					System.out.println("Digite o Numero da Agï¿½ncia: ");
+					agencia = leia.nextInt();
+					System.out.println("Digite o Nome do Titular: ");
+					leia.skip("\\R?");
+					titular = leia.nextLine();
+	
+					System.out.println("Digite o Saldo da Conta (R$): ");
+					saldo = leia.nextFloat();
+	
+					switch (tipo) {
+					case 1 -> {
+						System.out.println("Digite o Limite de Crï¿½dito (R$): ");
+						limite = leia.nextFloat();
+	
+						// criar o objeto conta corrente
+						contas.atualizar(new ContaCorrente(numero, agencia, tipo, titular, saldo, limite));
 
-				System.out.println("Digite o Saldo da Conta (R$): ");
-				saldo = leia.nextFloat();
-
-				// retornar tipo
-			
-
-				switch (tipo) {
-				case 1 -> {
-					System.out.println("Digite o Limite de Crï¿½dito (R$): ");
-					limite = leia.nextFloat();
-
-					// criar o objeto conta corrente
-				}
-				case 2 -> {
-					System.out.println("Digite o dia do Aniversario da Conta: ");
-					aniversario = leia.nextInt();
-
-					// criar o objeto conta poupanca
-
-				}
-				default -> {
-					System.out.println("Tipo de conta invï¿½lido!");
-				}
+					}
+					case 2 -> {
+						System.out.println("Digite o dia do Aniversario da Conta: ");
+						aniversario = leia.nextInt();
+	
+						// criar o objeto conta poupanca
+						contas.atualizar(new ContaPoupanca(numero, agencia, tipo, titular, saldo, aniversario));
+	
+					}
+					default -> {
+						System.out.println("Tipo de conta inválido!");
+					}
+					}
+				}else {
+					System.out.println("A Conta não foi encontrada!");
 				}
 
 				// fim do condicional buscar na collection
@@ -165,8 +183,10 @@ public class Menu {
 			case 5:
 				System.out.println("Apagar a Conta \n\n");
 
-				System.out.println("Digite o nï¿½mero da conta: ");
+				System.out.println("Digite o número da conta: ");
 				numero = leia.nextInt();
+				
+				contas.deletar(numero);
 				
 			keyPress();
 			break;
@@ -174,29 +194,33 @@ public class Menu {
 			case 6:
 				System.out.println("Saque \n\n");
 
-				System.out.println("Digite o nï¿½mero da conta: ");
+				System.out.println("Digite o número da conta: ");
 				numero = leia.nextInt();
 
 				System.out.println("Digite o valor do saque: ");
 				valor = leia.nextInt();
+				
+				contas.sacar(numero, valor);
 			
 				keyPress();
 				break;
 
 			case 7:
-				System.out.println("Depï¿½sito \n\n");
+				System.out.println("Deposito \n\n");
 
-				System.out.println("Digite o nï¿½mero da conta: ");
+				System.out.println("Digite o número da conta: ");
 				numero = leia.nextInt();
 
 				System.out.println("Digite o valor do deposito: ");
 				valor = leia.nextInt();
 				
+				contas.depositar(numero, valor);
+				
 				keyPress();
 				break;
 
 			case 8:
-				System.out.println("Transfï¿½ncia entre Contas \n\n");
+				System.out.println("Transferência entre Contas \n\n");
 
 				System.out.println("Digite o Numero da Conta de Origem: ");
 				numero = leia.nextInt();
@@ -204,15 +228,17 @@ public class Menu {
 				numeroDestino = leia.nextInt();
 
 				do {
-					System.out.println("Digite o Valor da Transferï¿½ncia (R$): ");
+					System.out.println("Digite o Valor da Transferência (R$): ");
 					valor = leia.nextFloat();
 				} while (valor <= 0);
+				
+				contas.transferir(numero, numeroDestino, valor);
 				
 				keyPress();
 				break;
 
 			default:
-				System.out.println("\nOpÃ§Ã£o invÃ¡lida \n\n");
+				System.out.println("\nOpção inválida \n\n");
 				keyPress();
 				break;
 			}
@@ -234,7 +260,7 @@ public class Menu {
 			System.out.println(Cores.TEXT_RESET + "Pressione a tecla enter para continuar...");
 			System.in.read();
 		} catch (IOException e) {
-			System.out.println("Erro de digitaÃ§Ã£o!");
+			System.out.println("Erro de digitação!");
 		}
 	}
 }
